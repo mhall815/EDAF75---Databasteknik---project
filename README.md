@@ -2,10 +2,12 @@
 
 This is the report for
 
-| First name | Last name  | stil_id  |
+| First name | Last name  | stil_id |
 | ------------- |:-------------:| -----:|
-| Mats      | Hallström | psy14mha |
-| Diederik      | Hansen | psy14mha |
+| Mats | Hallström  | psy14mha |
+| Diederik | Hansen  | stil_id |
+
+
 
  
 
