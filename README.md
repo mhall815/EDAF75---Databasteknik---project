@@ -2,9 +2,9 @@
 
 This is the report for
 
- + Firstname Lastname, `stil_id`
- + Mats Hallström, psy14mha
- + Diederik Hansen, psy14mha
+ Firstname Lastname, `stil_id`
+ Mats Hallström, psy14mha
+ Diederik Hansen, psy14mha
 
 
 We solved this project on our own, except for:
