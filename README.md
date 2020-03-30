@@ -42,11 +42,14 @@ so we use bold face for primary keys, italicized face for
 foreign keys, and bold italicized face for attributes which
 are both primary keys and foreign keys):
 
-+ authors(**author_name**, nationality)
-+ books(**isbn**, book_title, published_year, publisher)
-+ authored_books(**_author_name_**, **_isbn_**)
-+ copies(**copy_barcode**, _isbn_, _library_name_, shelf)
-+ ...
+
++ Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity)
++ Recipe(Quantity, Unit)
++ Product(**Product_name**)
++ Order(**Orderid**, OrderDate, ProductQuantity, DeliveryDate)
++ Customer(**Customerid**, Name, Address)
++ Pallet(**Palletid**, ProductionDate, DateDelivered, BlockedStatus, CurrentLocation)
+
 
 (this should be replaced with your own relations, of course,
 but use the same way of marking primary keys and foreign
