@@ -52,8 +52,8 @@ are both primary keys and foreign keys
 
 + Recipe(***Product_name***, ***Ingredient_name***, Quantity, Unit)
 + Product(**Product_name**)
-+ OrderedProductQnt(*****Product_name***, ***Orderid***, ProductQuantity)
-+ Order(**Orderid**, *CustomerId*, OrderDate, DeliveryDate)
++ OrderedProductQnt(***Product_name***, ***Orderid***, ProductQuantity)
++ Order(**Orderid**, *Customerid*, OrderDate, DeliveryDate)
 + Customer(**Customerid**, Name, Address)
 
 + Pallet(**Palletid**, *Product_Name*, *Orderid*, ProductionDate, DateDelivered, BlockedStatus, CurrentLocation)
