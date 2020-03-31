@@ -49,11 +49,14 @@ are both primary keys and foreign keys
 
 
 + Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity)
-+ Recipe(Quantity, Unit)
+
++ Recipe(***Product_name***, ***Ingredient_name***, Quantity, Unit)
 + Product(**Product_name**)
-+ Order(**Orderid**, OrderDate, ProductQuantity, DeliveryDate)
++ OrderedProductQnt(*****Product_name***, ***Orderid***, ProductQuantity)
++ Order(**Orderid**, *CustomerId*, OrderDate, DeliveryDate)
 + Customer(**Customerid**, Name, Address)
-+ Pallet(**Palletid**, ProductionDate, DateDelivered, BlockedStatus, CurrentLocation)
+
++ Pallet(**Palletid**, *Product_Name*, *Orderid*, ProductionDate, DateDelivered, BlockedStatus, CurrentLocation)
 
 
 <!-- (this should be replaced with your own relations, of course,
