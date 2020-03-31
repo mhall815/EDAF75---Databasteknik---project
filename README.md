@@ -7,11 +7,6 @@ This is the report for
 | Mats | Hallström  | psy14mha |
 | Diederik | Hansen  | ine15dha |
 
-
-
- 
-
-
 We solved this project on our own, except for:
 
  + The Peer-review meeting
@@ -50,12 +45,11 @@ are both primary keys and foreign keys
 
 + Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity)
 
-+ Recipe(***Product_name***, ***Ingredient_name***, Quantity, Unit)
++ Recipe(***Product_name***, *Ingredient_name*, Quantity, Unit)
 + Product(**Product_name**)
 + OrderedProductQnt(***Product_name***, ***Orderid***, ProductQuantity)
 + Order(**Orderid**, *Customerid*, OrderDate, DeliveryDate)
 + Customer(**Customerid**, Name, Address)
-
 + Pallet(**Palletid**, *Product_Name*, *Orderid*, ProductionDate, DateDelivered, BlockedStatus, CurrentLocation)
 
 
