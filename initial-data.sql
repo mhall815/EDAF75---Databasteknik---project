@@ -19,7 +19,7 @@ VALUES    ("Nut ring"),
     ("Berliner");
 
 INSERT
-INTO    Ingredient(Ingredient_name, QuantityStorage, unit)
+INTO    Ingredient(Ingredient_name, QuantityStorage, Unit)
 VALUES    ("Flour", 100000, "g"),
     ("Butter", 100000, "g"),
     ("Icing sugar", 100000, "g"),
@@ -43,7 +43,7 @@ VALUES    ("Flour", 100000, "g"),
 
 
 INSERT 
-INTO    Recipe(Product_name, Ingredient_name, Quantity, Unit)
+INTO    Recipe(Product_name, Ingredient_name, Quantity)
 VALUES    ("Nut Ring", "Flour", 450),
     ("Nut ring", "Butter", 450),
     ("Nut ring", "Icing sugar", 190),
