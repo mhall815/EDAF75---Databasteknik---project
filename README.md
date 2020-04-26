@@ -18,7 +18,7 @@ We solved this project on our own, except for:
 
 <!-- The model is in the file [`er-model.png`](er-model.png): -->
 
-![ER-model](http://www.plantuml.com/plantuml/proxy?cache=no&src= https://raw.githubusercontent.com/mhall815/EDAF75---Databasteknik---project/master/plantUML.iuml)
+![ER-model](http://www.plantuml.com/plantuml/proxy?cache=no&src=dhttps://raw.githubusercontent.com/mhall815/EDAF75---Databasteknik---project/master/plantUML.iuml)
 
 
 <center>
