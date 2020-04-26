@@ -5,7 +5,7 @@ This is the report for
 | First name | Last name  | stil_id |
 | ------------- |:-------------:| -----:|
 | Mats | Hallström  | psy14mha |
-| Diederik | Hansen  | ine15dha |
+| Diederik | Harmsen  | ine15dha |
 
 We solved this project on our own, except for:
 
@@ -43,9 +43,9 @@ foreign keys, and bold italicized face for attributes which
 are both primary keys and foreign keys
 
 
-+ Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity)
++ Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity, Unit)
 
-+ Recipe(***Product_name***, *Ingredient_name*, Quantity, Unit)
++ Recipe(***Product_name***, *Ingredient_name*, Quantity)
 + Product(**Product_name**)
 + OrderedProductQnt(***Product_name***, ***Orderid***, ProductQuantity)
 + Order(**Orderid**, *Customerid*, OrderDate, DeliveryDate)
