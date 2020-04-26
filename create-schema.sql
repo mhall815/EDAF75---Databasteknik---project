@@ -31,7 +31,7 @@ CREATE TABLE Recipe(
     Quantity    INT,
     PRIMARY KEY(Product_name, Ingredient_name),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
-    FOREIGN KEY(Ingredient_name) REFERENCES Ingredient(Ingredient_name)  
+    FOREIGN KEY(Ingredient_name) REFERENCES Ingredient(Ingredient_name)
 );
 
 
