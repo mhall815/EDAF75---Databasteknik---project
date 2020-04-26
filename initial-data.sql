@@ -1,3 +1,20 @@
+
+DELETE
+FROM Customer;
+DELETE
+FROM Product;
+DELETE
+FROM Ingredient;
+DELETE
+FROM Recipe;
+DELETE
+FROM Orders;
+DELETE
+FROM OrderedProductQnt;
+DELETE
+FROM Pallet;
+
+
 INSERT
 INTO    Customer(Customerid, Name, Address)
 VALUES    (lower(hex(randomblob(16))), "Finkakor AB", "Helsingborg"),
