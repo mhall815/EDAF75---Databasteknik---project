@@ -22,6 +22,7 @@ def executeScriptsFromFile(filename):
     fd.close()
     
     sqlCommands = sqlFile.split(';')
+    c = conn.cursor()
     
     for command in sqlCommands:
         try:
@@ -56,7 +57,7 @@ def get_customer():
 @post('/reset')
 def reset():
     c = conn.cursor()
-    #This line of code might shorten it by a lot. Will not have to include everything below. 	  c.executeScriptsFromFile('initial-data.db')
+    c.executeScriptsFromFile('initial-data.sql')
     c.executescript(
 """
 PRAGMA foreign_keys = OFF;
@@ -156,6 +157,21 @@ VALUES    ("Nut Ring", "Flour", 450),
     response.status = 200
     return 'OK \n'
     
+
+
+@get(/'orders')
+def get_orders():
+    c=conn.cursor()
+    c.execute(
+
+
+
+
+    )
+
+
+
+
 
 
 run(host=HOST, port=PORT, debug=True)

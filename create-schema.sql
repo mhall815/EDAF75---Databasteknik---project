@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS Ingredient;
 DROP TABLE IF EXISTS Recipe;
 DROP TABLE IF EXISTS Product;
 DROP TABLE IF EXISTS OrderedProductQnt;
-DROP TABLE IF EXISTS Order;
+DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Pallet;
 
@@ -29,11 +29,9 @@ CREATE TABLE Recipe(
     Product_name    TEXT,
     Ingredient_name    TEXT,
     Quantity    INT,
-    Unit    TEXT,
     PRIMARY KEY(Product_name, Ingredient_name),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
-    FOREIGN KEY(Ingredient_name) REFERENCES Ingredient(Ingredient_name),
-    FOREIGN KEY(Unit) REFERENCES Ingredient(Unit)   
+    FOREIGN KEY(Ingredient_name) REFERENCES Ingredient(Ingredient_name)  
 );
 
 
@@ -44,7 +42,7 @@ CREATE TABLE Customer(
     PRIMARY KEY(Customerid)
 );
 
-CREATE TABLE Order(
+CREATE TABLE Orders(
     Orderid    TEXT DEFAULT (lower(hex(randomblob(16)))),
     Customerid    TEXT,
     DeliveryDate   DATETIME,
@@ -57,9 +55,9 @@ CREATE TABLE OrderedProductQnt(
     Product_name    TEXT,
     Orderid    TEXT,
     ProductQuantity    INT,
-    PRIMARY KEY(Product_name, Order_id),
+    PRIMARY KEY(Product_name, Orderid),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
-    FOREIGN KEY(Orderid) REFERENCES Order(Orderid)
+    FOREIGN KEY(Orderid) REFERENCES Orders(Orderid)
 );
 
 CREATE TABLE Pallet(
@@ -72,5 +70,5 @@ CREATE TABLE Pallet(
     CurrentLocation    TEXT,
     PRIMARY KEY(Palletid),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
-    FOREIGN KEY(Orderid) REFERENCES Order(Orderid)
+    FOREIGN KEY(Orderid) REFERENCES Orders(Orderid)
 );

@@ -1,13 +1,13 @@
 INSERT
 INTO    Customer(Customerid, Name, Address)
 VALUES    (lower(hex(randomblob(16))), "Finkakor AB", "Helsingborg"),
-    (lower(hex(randomblob(16))), "Småbröd AB", "Malmö"),
-    (lower(hex(randomblob(16))), "Kaffebröd AB", "Landskrona"),
+    (lower(hex(randomblob(16))), "Smaobroed AB", "Malmoe"),
+    (lower(hex(randomblob(16))), "Kaffebroed AB", "Landskrona"),
     (lower(hex(randomblob(16))), "Bjudkakor AB", "Ystad"),
     (lower(hex(randomblob(16))), "Kalaskakor AB", "Trelleborg"),
     (lower(hex(randomblob(16))), "Partykakor AB", "Kristianstad"),
-    (lower(hex(randomblob(16))), "Gästkakor AB", "Hässleholm"),
-    (lower(hex(randomblob(16))), "Skånekakor AB", "Perstop");
+    (lower(hex(randomblob(16))), "Gaestkakor AB", "Haessleholm"),
+    (lower(hex(randomblob(16))), "Skaonekakor AB", "Perstop");
 
 INSERT 
 INTO    Product(Product_name)
