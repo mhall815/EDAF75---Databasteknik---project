@@ -18,8 +18,11 @@ We solved this project on our own, except for:
 
 <!-- The model is in the file [`er-model.png`](er-model.png): -->
 
-![ER-model](http://www.plantuml.com/plantuml/proxy?cache=no&src=dhttps://raw.githubusercontent.com/mhall815/EDAF75---Databasteknik---project/master/plantUML.iuml)
 
+
+<center>
+    <img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mhall815/EDAF75---Databasteknik---project/plantUML.txt" width="100%">
+</center>
 
 <center>
     <img src="er-model.png" width="100%">
