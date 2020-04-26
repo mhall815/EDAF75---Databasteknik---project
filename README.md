@@ -21,8 +21,8 @@ We solved this project on our own, except for:
 
 
 <center>
-    <img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mhall815/EDAF75---Databasteknik---project/plantUML.txt" width="100%">
-</center>
+        <img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mhall815/EDAF75---Databasteknik---project/blob/master/plantUML.text" width="100%">
+    </center>
 
 <center>
     <img src="er-model.png" width="100%">
