@@ -4,7 +4,7 @@ import json
 
 HOST = 'localhost'
 PORT = 1234
-
+#TEST
 
 conn = sqlite3.connect("create-schema.db")
 
