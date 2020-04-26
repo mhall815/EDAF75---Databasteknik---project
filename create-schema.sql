@@ -61,7 +61,7 @@ CREATE TABLE OrderedProductQnt(
 );
 
 CREATE TABLE Pallet(
-    Palletid    TEXT DEFAULT (lower(hex(randomblob(16)))),
+    Palletid    TEXT DEFAULT (lower(hex(randomblob(32)))),
     Product_name    TEXT,
     Orderid    TEXT,
     ProductionDate    DATETIME,
