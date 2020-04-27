@@ -47,7 +47,7 @@ are both primary keys and foreign keys
 
 + Ingredient(**Ingredient_name**, QuantityStorage, LastDeliveryTime, LastDeliveryQuantity, Unit)
 
-+ Recipe(***Product_name***, *Ingredient_name*, Quantity)
++ Recipe(***Product_name***, ***Ingredient_name***, Quantity)
 + Product(**Product_name**)
 + OrderedProductQnt(***Product_name***, ***Orderid***, ProductQuantity)
 + Order(**Orderid**, *Customerid*, OrderDate, DeliveryDate)

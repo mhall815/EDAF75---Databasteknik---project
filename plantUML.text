@@ -1,4 +1,71 @@
 @startuml
+
+class Ingredient {
+    Ingredient_name
+    QuantityStorage
+    Unit
+    LastDeliveryTime
+    LastDeliveryQuantity
+}
+
+
+class Product {
+    Product_name
+}
+
+class Recipe {}
+    Product_name
+    Ingredient_name
+    Quantity
+}
+
+
+class Customer {
+    Customerid
+    Name
+    Address
+}
+
+class Orders {
+    Orderid
+    Customerid
+    DeliveryDate
+    OrderDate
+}
+
+class OrderedProductQnt {
+    Product_name
+    Orderid
+    ProductQuantity
+}
+
+class Pallet {
+    Palletid
+    Product_name
+    Orderid
+    ProductionDate
+    DateDelivered
+    BlockedStatus
+    CurrentLocation
+}
+
+
+Customers "1" -- "*" Orders
+
+Products"*" -- "*" Orders
+(Products, Orders) .. OrderedProductQnt
+
+
+Products "*" -- "*" Ingredients
+(Products, Ingredients) .. Reciepes 
+Products "1" -- "*" Pallets
+Orders"0,1" -- "*" Pallets
+
+
+@enduml
+
+
+
 class Customers {
   CustomerId
   Name
@@ -30,8 +97,9 @@ class Reciepes << weak >> {
 }
 
 class Ingredients {
-  Ingredients_Name
+  Ingredients_name
   QuantityStorage
+  Unit
   LastDeliveryTime
   LastDeliveryQuantity
 
