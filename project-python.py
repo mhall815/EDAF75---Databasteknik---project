@@ -40,7 +40,7 @@ def get_ping():
     return "pong \n"
 
 
-@get('/customer')
+@get('/customers')
 def get_customer():
     c = conn.cursor()
     c.execute(
@@ -49,8 +49,8 @@ def get_customer():
             FROM Customer
         """
     )
-    s = [{"name": Name, "Address": Address}
-         for (Name, Address) in c]
+    s = [{"name": Name, "address": Address}
+         for (Name, Address,) in c]
 
     response.status = 200
     return json.dumps({"customers": s}, indent=4)
@@ -165,6 +165,23 @@ def post_pallets():
         """
     )
     get_Palletid = c.fetchone()[0]
+
+    c.execute(
+        """
+        SELECT Ingredient_name, Quantity
+        FROM Recipe
+        WHERE Product_name = ?
+        """, [cookie]
+    )
+    IngChange = c.fetchall()
+    for ing in IngChange:
+        c.execute(
+            """
+            UPDATE Ingredient
+            SET QuantityStorage = QuantityStorage - ?*54   
+            WHERE Ingredient_name = ?  
+        """, [(ing['Quantity']), ing['Ingredient_name']]
+    )
     return json.dumps({"status": "ok", "id": get_Palletid})
 
 
