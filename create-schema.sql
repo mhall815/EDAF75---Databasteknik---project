@@ -62,11 +62,11 @@ CREATE TABLE OrderedProductQnt(
 
 CREATE TABLE Pallet(
     Palletid    TEXT DEFAULT (lower(hex(randomblob(32)))),
-    Product_name    TEXT,
+    Product_name    TEXT NOT NULL,
     Orderid    TEXT,
-    ProductionDate    DATETIME,
+    ProductionDate    DATE NOT NULL,
     DateDelivered    DATETIME,
-    BlockedStatus    BOOLEAN,
+    BlockedStatus    BOOLEAN DEFAULT FALSE,
     CurrentLocation    TEXT,
     PRIMARY KEY(Palletid),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
