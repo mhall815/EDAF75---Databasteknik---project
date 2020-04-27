@@ -66,7 +66,7 @@ CREATE TABLE Pallet(
     Orderid    TEXT,
     ProductionDate    DATETIME NOT NULL,
     DateDelivered    DATETIME,
-    BlockedStatus    BOOLEAN DEFAULT 0,
+    BlockedStatus    INTEGER DEFAULT 0,
     CurrentLocation    TEXT,
     PRIMARY KEY(Palletid),
     FOREIGN KEY(Product_name) REFERENCES Product(Product_name),
