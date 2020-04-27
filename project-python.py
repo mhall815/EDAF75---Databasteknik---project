@@ -10,7 +10,7 @@ conn = sqlite3.connect("create-schema.db")
 
 
 def url(resource):
-    return "http://{}:{}{}".format(HOST, PORT, resource)
+    return f"http://{HOST}:{PORT}{resource}"
 
 
 def format_response(d):
@@ -81,11 +81,12 @@ def get_cookies():
             FROM Product
         """
     )
+
     s = [{"name": Product_name}
          for (Product_name) in c]
-
-    response.status = 200
-    return json.dumps({"cookies": s}, indent=4)
+    get_product_name= c.fetchall()
+    get_product_name = {"name":get_product_name}
+    return json.dumps({"cookies":s}, indent=4)
 
 
 @get('/recipes')
@@ -259,8 +260,7 @@ def reset():
     executeScriptsFromFile('initial-data.sql')
 
     conn.commit()
-    response.status = 200
-    return 'ok \n'
+     return json.dumps({"status": "ok"}, indent=4)
 
 
 run(host=HOST, port=PORT, debug=True)
