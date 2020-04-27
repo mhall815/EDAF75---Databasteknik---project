@@ -108,7 +108,6 @@ def get_recipes():
 def post_pallets():
     response.content_type = 'application/json'
 
-
     cookie = request.query.cookie
 
     if not (cookie):
@@ -166,15 +165,6 @@ def checkIngredients(Ingredient, Quantity):
     """,[Ingredient, Quantity]
               )
     return c.fetchone()[0]
-
-
-
-
-
-
-
-
-
 
 
 
