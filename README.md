@@ -21,11 +21,7 @@ We solved this project on our own, except for:
 
 
 <center>
-        <img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mhall815/EDAF75---Databasteknik---project/blob/master/plantUML.text" width="100%">
-    </center>
-
-<center>
-    <img src="er-model.png" width="100%">
+    <img src="Er-model-2.png" width="100%">
 </center>
 
 <!-- (The image above describes the model from lecture 4, you
