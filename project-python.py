@@ -168,7 +168,7 @@ def post_pallets():
 
 
 
-    return json.dumps({"status": "ok", "id": get_Palletid})
+    return json.dumps({"status": "ok", "id": get_Palletid })
 
 
 # simple get pallets. See if blocked or not as well.
