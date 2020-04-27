@@ -166,11 +166,7 @@ def post_pallets():
         """
     )
     get_Palletid = c.fetchone()[0]
-    print(get_Palletid)
-
-
-
-    return json.dumps({"status": "ok", "id": get_Palletid })
+    return json.dumps({"status": "ok", "id": get_Palletid})
 
 
 # simple get pallets. See if blocked or not as
@@ -183,14 +179,19 @@ def get_pallets():
     c = conn.cursor()
     c.execute(
         """
-        SELECT Palletid, Product_name, ProductionDate, BlockedStatus
+        SELECT Palletid, Product_name, ProductionDate, Name, 
+        CASE WHEN BlockedStatus= 0 THEN 'false' ELSE 'true' END as blocked 
         FROM Pallet
+        LEFT JOIN Orders
+        USING(Orderid)
+        LEFT JOIN Customer
+        USING(Customerid)
 
         """
     )
-    s = [{"id": Palletid, "cookie": Product_name, "productionDate": ProductionDate,
-          "blocked": BlockedStatus}
-         for (Palletid, Product_name, ProductionDate, BlockedStatus) in c]
+    s = [{"id": Palletid, "cookie": Product_name, "productionDate": ProductionDate, "customer": Name,
+          "blocked": blocked}
+         for (Palletid, Product_name, ProductionDate, Name, blocked) in c]
 
     response.status = 200
     return json.dumps({"pallets": s}, indent=4)
@@ -199,13 +200,9 @@ def get_pallets():
 # curl -X POST http://localhost:8888/block/<cookie-name>/<from-date>/<to-date>
 # blocks specific cookie produced during form-date to to-date.
 # change blocked status to true if cookie name and is produced during specific date.
-@post('/block')
-def post_block():
+@post('/block/<cookie>/<from_date>/<to_date>')
+def post_block(cookie, from_date, to_date):
     response.content_type = 'application/json'
-
-    cookie = request.query.cookie
-    from_date = request.query.from_date
-    to_date = request.query.to_date
 
     if not (cookie and from_date and to_date):
         response.status = 400
@@ -217,18 +214,45 @@ def post_block():
             """
             UPDATE Pallet
             SET
-                BlockedStatus = true
+                BlockedStatus = 1
             WHERE Product_name = ? AND  ProductionDate > ? AND ProductionDate < ?
             """,
             [cookie, from_date, to_date]
         )
-        check = c.fetchone()[0]
     except:
         return json.dumps({"status": "no such cookie"}, indent=4)
 
+    return json.dumps({"status": "such cookie"}, indent=4)
 
-@post('/unblock')
+
+@post('/unblock/<cookie>/<from_date>/<to_date>')
+def post_block(cookie, from_date, to_date):
+    response.content_type = 'application/json'
+
+    if not (cookie and from_date and to_date):
+        response.status = 400
+        return json.dump({"error": "missing parameter"}, indent=4)
+
+    try:
+        c = conn.cursor()
+        c.execute(
+            """
+            UPDATE Pallet
+            SET
+                BlockedStatus = 0
+            WHERE Product_name = ? AND  ProductionDate > ? AND ProductionDate < ?
+            """,
+            [cookie, from_date, to_date]
+        )
+    except:
+        return json.dumps({"status": "no such cookie"}, indent=4)
+
+    return json.dumps({"status": "such cookie"}, indent=4)
+
+
 # unblocks cookies from dates to dates. Similar as before but with unblock insted.
+
+
 
 @post('/reset')
 def reset():
