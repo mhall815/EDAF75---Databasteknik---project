@@ -10,7 +10,7 @@ conn = sqlite3.connect("create-schema.db")
 
 
 def url(resource):
-    return "http://{}:{}{}".format(HOST, PORT, resource)
+    return f"http://{HOST}:{PORT}{resource}"
 
 
 def format_response(d):
@@ -40,17 +40,17 @@ def get_ping():
     return "pong \n"
 
 
-@get('/customer')
+@get('/customers')
 def get_customer():
     c = conn.cursor()
     c.execute(
         """
-            SELECT Name, Address, CustomerId
+            SELECT Name, Address
             FROM Customer
         """
     )
-    s = [{"name": Name, "Address": Address, "CustomerId": CustomerId}
-         for (Name, Address, CustomerId) in c]
+    s = [{"name": Name, "address": Address}
+         for (Name, Address,) in c]
 
     response.status = 200
     return json.dumps({"customers": s}, indent=4)
@@ -81,11 +81,10 @@ def get_cookies():
             FROM Product
         """
     )
-    s = [{"name": Product_name}
-         for (Product_name) in c]
 
-    response.status = 200
-    return json.dumps({"cookies": s}, indent=4)
+    s = [{"name": Product_name}
+         for (Product_name,) in c]
+    return json.dumps({"cookies":s}, indent=4)
 
 
 @get('/recipes')
@@ -166,6 +165,24 @@ def post_pallets():
         """
     )
     get_Palletid = c.fetchone()[0]
+
+
+    c.execute(
+        """
+        WITH UsedIng AS (
+            SELECT Ingredient_name
+            FROM Recipe
+            WHERE Product_name = ?)
+            
+        UPDATE Ingredient
+        SET
+            QuantityStorage = QuantityStorage - (SELECT Quantity*54 FROM Recipe 
+            WHERE Ingredient.Ingredient_name = Recipe.Ingredient_name AND Product_name = ?
+            )
+
+        WHERE Ingredient_name IN UsedIng        
+        """, [cookie, cookie]
+    )
     return json.dumps({"status": "ok", "id": get_Palletid})
 
 
@@ -176,22 +193,34 @@ def post_pallets():
 # "before" restricts search to before date. "cookie" gets pallet of specific cookie
 @get('/pallets')
 def get_pallets():
+    params = []
+    query = """
+            SELECT Palletid, Product_name, ProductionDate, Name, BlockedStatus
+            FROM Pallet
+            LEFT JOIN Orders
+            USING(Orderid)
+            LEFT JOIN Customer
+            USING(Customerid)
+            WHERE TRUE
+            """
+    if request.query.cookie:
+        query+= "AND Product_name = ?"
+        params.append(request.query.cookie)
+    if request.query.blocked:
+        query+= "AND BlockedStatus = ?"
+        params.append(request.query.blocked)
+    if request.query.after:
+        query+= "AND ProductionDate > ?"
+        params.append(request.query.after)
+    if request.query.before:
+        query+= "AND ProductionDate < ?"
+#När vi returnerar får vi fortfarande värdena 0 och 1.
     c = conn.cursor()
-    c.execute(
-        """
-        SELECT Palletid, Product_name, ProductionDate, Name, 
-        CASE WHEN BlockedStatus= 0 THEN 'false' ELSE 'true' END as blocked 
-        FROM Pallet
-        LEFT JOIN Orders
-        USING(Orderid)
-        LEFT JOIN Customer
-        USING(Customerid)
+    c.execute(query, params)
 
-        """
-    )
     s = [{"id": Palletid, "cookie": Product_name, "productionDate": ProductionDate, "customer": Name,
-          "blocked": blocked}
-         for (Palletid, Product_name, ProductionDate, Name, blocked) in c]
+          "blocked": BlockedStatus}
+         for (Palletid, Product_name, ProductionDate, Name, BlockedStatus) in c]
 
     response.status = 200
     return json.dumps({"pallets": s}, indent=4)
@@ -215,14 +244,14 @@ def post_block(cookie, from_date, to_date):
             UPDATE Pallet
             SET
                 BlockedStatus = 1
-            WHERE Product_name = ? AND  ProductionDate > ? AND ProductionDate < ?
+            WHERE Product_name = ? AND  ProductionDate >= ? AND ProductionDate <= ?
             """,
             [cookie, from_date, to_date]
         )
     except:
         return json.dumps({"status": "no such cookie"}, indent=4)
 
-    return json.dumps({"status": "such cookie"}, indent=4)
+    return json.dumps({"status": "ok"}, indent=4)
 
 
 @post('/unblock/<cookie>/<from_date>/<to_date>')
@@ -247,7 +276,7 @@ def post_block(cookie, from_date, to_date):
     except:
         return json.dumps({"status": "no such cookie"}, indent=4)
 
-    return json.dumps({"status": "such cookie"}, indent=4)
+    return json.dumps({"status": "ok"}, indent=4)
 
 
 # unblocks cookies from dates to dates. Similar as before but with unblock insted.
@@ -259,8 +288,7 @@ def reset():
     executeScriptsFromFile('initial-data.sql')
 
     conn.commit()
-    response.status = 200
-    return 'ok \n'
+    return json.dumps({"status": "ok"}, indent=4)
 
 
 run(host=HOST, port=PORT, debug=True)
