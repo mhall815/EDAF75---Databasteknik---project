@@ -16,7 +16,7 @@ def url(resource):
 def format_response(d):
     return json.dumps(d, indent=4) + "\n"
 
-
+#Function that goes through file and runs all functions in sql file.
 def executeScriptsFromFile(filename):
     c = conn.cursor()
     # Opens and reads the file in question.
@@ -30,16 +30,17 @@ def executeScriptsFromFile(filename):
         try:
             c.execute(command)
         except OperationalError as msg:
-            print
-            "Command skipped: ", msg
+            print("Command skipped: ", msg)
 
+#Resets system by iterating through file initial-data.sql. Send it to function executescriptsfromfile.
+@post('/reset')
+def reset():
+    executeScriptsFromFile('initial-data.sql')
 
-@get('/ping')
-def get_ping():
-    response.status = 200
-    return "pong \n"
+    conn.commit()
+    return json.dumps({"status": "ok"}, indent=4)
 
-
+#Gets customers from database.
 @get('/customers')
 def get_customer():
     c = conn.cursor()
@@ -47,6 +48,7 @@ def get_customer():
         """
             SELECT Name, Address
             FROM Customer
+            ORDER BY Name ASC;
         """
     )
     s = [{"name": Name, "address": Address}
@@ -55,7 +57,7 @@ def get_customer():
     response.status = 200
     return json.dumps({"customers": s}, indent=4)
 
-
+#Gets ingredients from database.
 @get('/ingredients')
 def get_ingredients():
     c = conn.cursor()
@@ -63,6 +65,7 @@ def get_ingredients():
         """
             SELECT Ingredient_name, QuantityStorage, Unit
             FROM Ingredient
+            ORDER BY Ingredient_name ASC;
         """
     )
     s = [{"name": Ingredient_name, "quantity": QuantityStorage, "unit": Unit}
@@ -79,6 +82,7 @@ def get_cookies():
         """
             SELECT Product_name
             FROM Product
+            ORDER BY Product_name ASC;
         """
     )
 
@@ -97,6 +101,7 @@ def get_recipes():
         FROM Recipe
         INNER JOIN Ingredient
         USING(Ingredient_name)
+        ORDER BY Product_name ASC;
         """
     )
     s = [{"cookie": Product_name, "ingredient": Ingredient_name, "quantity": Quantity, "unit": Unit}
@@ -136,7 +141,7 @@ def post_pallets():
     except:
         return json.dumps({"status": "no such cookie"}, indent=4)
 
-    # loopa igenom produktens ingredienser och kor checkingredients.
+    #Checks first if it is possible to withdraw the needed amount of ingredients. *54 to get for one pallet not 100st.
     c.execute(
         """
     SELECT Ingredient_name
@@ -282,13 +287,6 @@ def post_block(cookie, from_date, to_date):
 # unblocks cookies from dates to dates. Similar as before but with unblock insted.
 
 
-
-@post('/reset')
-def reset():
-    executeScriptsFromFile('initial-data.sql')
-
-    conn.commit()
-    return json.dumps({"status": "ok"}, indent=4)
 
 
 run(host=HOST, port=PORT, debug=True)
