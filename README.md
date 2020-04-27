@@ -21,7 +21,7 @@ We solved this project on our own, except for:
 
 
 <center>
-    <img src="er-model-2.png" width="100%">
+    <img src="Er-model-2.png" width="100%">
 </center>
 
 <!-- (The image above describes the model from lecture 4, you
