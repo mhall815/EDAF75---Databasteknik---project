@@ -78,23 +78,17 @@ sqlite3 krusty-db.sqlite < initial-data.sql
 
 ## How to compile and run the program
 
-This section should give a few simple commands to type to
-compile and run the program from the command line, such as:
+In your terminal window, compile and start your REST service by executing either:
 
 ```shell
 ./gradlew run
 ```
-
-or
-
-```shell
-javac -d bin/ -cp src src/krusty/Main.java
-java -cp bin:sqlite-jdbc.jar krusty.Main
-```
-
-or, if you put your commands into a `Makefile`:
+if you’re running Linux or Mac, or
 
 ```shell
-make compile
-make run
+gradlew.bat run
 ```
+
+if your’re running Windows.
+
+

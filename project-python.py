@@ -274,7 +274,7 @@ def post_block(cookie, from_date, to_date):
             UPDATE Pallet
             SET
                 BlockedStatus = 0
-            WHERE Product_name = ? AND  ProductionDate > ? AND ProductionDate < ?
+            WHERE Product_name = ? AND  ProductionDate >= ? AND ProductionDate <= ?
             """,
             [cookie, from_date, to_date]
         )
