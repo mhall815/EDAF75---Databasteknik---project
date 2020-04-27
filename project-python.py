@@ -155,13 +155,15 @@ def post_pallets():
     c.execute(
         """
         INSERT INTO Pallet(Palletid, Product_name, ProductionDate)
-        VALUES(lower(hex(randomblob(16))), ?, CURRENT_DATE )
-        RETURNING Palletid;
-        
+        VALUES(lower(hex(randomblob(16))), ?, CURRENT_DATE)
+        """, [cookie]
+    )
+    c.execute(
+        """
         SELECT Palletid
         FROM Pallet
         WHERE rowid = last_insert_rowid()
-        """, [cookie]
+        """
     )
     get_Palletid = c.fetchone()[0]
     print(get_Palletid)
@@ -171,7 +173,8 @@ def post_pallets():
     return json.dumps({"status": "ok", "id": get_Palletid })
 
 
-# simple get pallets. See if blocked or not as well.
+# simple get pallets. See if blocked or not as
+
 # curl -X GET http://localhost:8888/pallets\?cookie\=Amneris\&blocked\=0\&after\=2020-03-03
 # extra parameters are "blocked" see only blocked pallets, "after" get pallets produced after date.
 # "before" restricts search to before date. "cookie" gets pallet of specific cookie
