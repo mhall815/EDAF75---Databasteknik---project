@@ -45,12 +45,12 @@ def get_customer():
     c = conn.cursor()
     c.execute(
         """
-            SELECT Name, Address, CustomerId
+            SELECT Name, Address
             FROM Customer
         """
     )
-    s = [{"name": Name, "Address": Address, "CustomerId": CustomerId}
-         for (Name, Address, CustomerId) in c]
+    s = [{"name": Name, "Address": Address}
+         for (Name, Address) in c]
 
     response.status = 200
     return json.dumps({"customers": s}, indent=4)
@@ -83,9 +83,7 @@ def get_cookies():
     )
 
     s = [{"name": Product_name}
-         for (Product_name) in c]
-    get_product_name= c.fetchall()
-    get_product_name = {"name":get_product_name}
+         for (Product_name,) in c]
     return json.dumps({"cookies":s}, indent=4)
 
 
@@ -260,7 +258,7 @@ def reset():
     executeScriptsFromFile('initial-data.sql')
 
     conn.commit()
-     return json.dumps({"status": "ok"}, indent=4)
+    return json.dumps({"status": "ok"}, indent=4)
 
 
 run(host=HOST, port=PORT, debug=True)
